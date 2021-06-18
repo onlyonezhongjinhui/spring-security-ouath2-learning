@@ -1,0 +1,9 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    root: WARN
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
