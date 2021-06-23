@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.oauth2.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="io.github.oauth2.entity.PermissionDO">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="resourceType" column="resource_type" jdbcType="OTHER"/>
+        <result property="routeName" column="route_name" jdbcType="VARCHAR"/>
+        <result property="routeUrl" column="route_url" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectBatchIds" resultMap="BaseResultMap">
+        select
+        id, parent_id, code, name, resource_type, route_name, route_url, component, icon
+        from permission
+        where id in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>
