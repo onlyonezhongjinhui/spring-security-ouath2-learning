@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.oauth2.mapper.RolePermissionMapper">
+
+    <resultMap id="BaseResultMap" type="io.github.oauth2.entity.RolePermissionDO">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="permissionId" column="permission_id" jdbcType="VARCHAR"/>
+        <result property="roleId" column="role_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByQuery" resultMap="BaseResultMap" parameterType="io.github.oauth2.query.RolePermissionQuery">
+        select
+        id, permission_id, role_id
+        from role_permission
+        <where>
+            <if test="roleIds != null">
+                role_id in
+                <foreach collection="roleIds" open="(" item="roleId" separator="," close=")">
+                    #{roleId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>
