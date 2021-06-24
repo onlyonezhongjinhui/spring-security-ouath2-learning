@@ -65,7 +65,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-        return new RedisTokenStore(factory);
+        RedisTokenStore tokenStore = new RedisTokenStore(factory);
+        tokenStore.setPrefix("oauth2:");
+        return tokenStore;
     }
 
     @Bean

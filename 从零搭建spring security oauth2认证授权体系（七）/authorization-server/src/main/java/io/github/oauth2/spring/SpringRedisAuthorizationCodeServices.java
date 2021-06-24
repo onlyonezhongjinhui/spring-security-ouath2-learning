@@ -17,13 +17,13 @@ public class SpringRedisAuthorizationCodeServices extends RandomValueAuthorizati
 
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
-        redisTemplate.opsForValue().set("oauth_code:" + code, authentication, 10, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("oauth2:oauth_code:" + code, authentication, 10, TimeUnit.MINUTES);
     }
 
     @Override
     protected OAuth2Authentication remove(String code) {
-        OAuth2Authentication token = redisTemplate.opsForValue().get("oauth_code:" + code);
-        this.redisTemplate.delete("oauth_code:" + code);
+        OAuth2Authentication token = redisTemplate.opsForValue().get("oauth2:oauth_code:" + code);
+        this.redisTemplate.delete("oauth2:oauth_code:" + code);
         return token;
     }
 
